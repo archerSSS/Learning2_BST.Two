@@ -154,11 +154,6 @@ namespace AlgorithmsDataStructures2
                 {
                     PreOrder(list, Root);
                 }
-                else if (mode == 3)
-                {
-                    PostOrder(list, Root);
-                    PostOrder_Extension(list);
-                }
             }
 
             return list;
@@ -188,39 +183,7 @@ namespace AlgorithmsDataStructures2
             if (node.RightChild != null)
                 PreOrder(list, node.RightChild);
         }
-
-        private void PostOrder_2(List<BSTNode<T>> list, BSTNode<T> node)
-        {
-            if (node.RightChild != null) PostOrder_2(list, FinMinMax(node.RightChild, false));
-            else if (node.LeftChild == null) list.Add(node);
-            if (node.Parent != null && node.Parent.NodeKey > node.NodeKey) PostOrder_2(list, node.Parent);
-        }
-
-        private void PostOrder_Extension(List<BSTNode<T>> list)
-        {
-            List<BSTNode<T>> next_list = new List<BSTNode<T>>();
-            BSTNode<T> last_parent = null;
-            if (list.First().Parent != null)
-            {
-                foreach (BSTNode<T> node in list)
-                {
-                    if (last_parent == null)
-                    {
-                        last_parent = node.Parent;
-                        next_list.Add(node.Parent);
-                        continue;
-                    }
-                    if (last_parent.NodeKey != node.Parent.NodeKey)
-                        next_list.Add(node.Parent);
-                    last_parent = node.Parent;
-                }
-                PostOrder_Extension(next_list);
-                list.AddRange(next_list);
-            }
-        }
-
-
-
+        
         public List<BSTNode<T>> WideAllNodes()
         {
             List<BSTNode<T>> list = new List<BSTNode<T>>();

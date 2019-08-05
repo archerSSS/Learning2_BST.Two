@@ -86,9 +86,30 @@ namespace AlgoTest_1
                 counter++;
             }
         }
-        
+
         [TestMethod]
         public void TestDeepMode0_3()
+        {
+            BST<int> bst = GetBST();
+            bst.AddKeyValue(-6, 200);
+            bst.AddKeyValue(-8, 200);
+            bst.AddKeyValue(-7, 200);
+            bst.AddKeyValue(4, 200);
+
+            List<BSTNode<int>> list = bst.DeepAllNodes(0);
+            int[] keys = new int[] { -8, -7, -6, 3, 4, 6, 8, 9, 10, 12, 16, 19, 20, 23 };
+            int counter = 0;
+            Assert.AreEqual(14, list.Count);
+
+            foreach (BSTNode<int> node in list)
+            {
+                Assert.AreEqual(keys[counter], node.NodeKey);
+                counter++;
+            }
+        }
+
+        [TestMethod]
+        public void TestDeepMode0_4()
         {
             BST<int> bst = GetBST();
             bst.AddKeyValue(-5, 200);
