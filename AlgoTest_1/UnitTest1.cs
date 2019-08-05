@@ -34,15 +34,71 @@ namespace AlgoTest_1
             Assert.AreEqual(5, lastLowest_node.NodeKey);
         }
 
+        [TestMethod]
+        public void TestWid_3()
+        {
+            BST<int> bst = GetBST();
+            bst.AddKeyValue(4, 200);
+            bst.AddKeyValue(11, 200);
+            bst.AddKeyValue(15, 200);
+            bst.AddKeyValue(18, 200);
+            bst.AddKeyValue(32, 200);
+            bst.AddKeyValue(26, 200);
+            bst.AddKeyValue(28, 200);
+            bst.AddKeyValue(27, 200);
+
+            List<BSTNode<int>> list = bst.WideAllNodes();
+            int[] keys = new int[] { 16, 8, 20, 3, 10, 19, 23, 6, 9, 12, 18, 32, 4, 11, 15, 26, 28, 27 };
+
+            int counter = 0;
+            foreach (BSTNode<int> node in list)
+            {
+                Assert.AreEqual(keys[counter], node.NodeKey);
+                counter++;
+            }
+        }
 
         [TestMethod]
         public void TestDeepMode0_1()
+        {
+            BST<int> bst = new BST<int>(null);
+            bst.AddKeyValue(31, 100);
+
+            List<BSTNode<int>> list = bst.DeepAllNodes(0);
+
+            Assert.AreEqual(1, list.Count);
+            foreach (BSTNode<int> node in list)
+                Assert.AreEqual(31, node.NodeKey);
+        }
+
+        [TestMethod]
+        public void TestDeepMode0_2()
         {
             BST<int> bst = GetBST();
             List<BSTNode<int>> list = bst.DeepAllNodes(0);
             int[] keys = new int[] { 3, 6, 8, 9, 10, 12, 16, 19, 20, 23 };
             int counter = 0;
             Assert.AreEqual(10, list.Count);
+
+            foreach (BSTNode<int> node in list)
+            {
+                Assert.AreEqual(keys[counter], node.NodeKey);
+                counter++;
+            }
+        }
+        
+        [TestMethod]
+        public void TestDeepMode0_3()
+        {
+            BST<int> bst = GetBST();
+            bst.AddKeyValue(-5, 200);
+            bst.AddKeyValue(1, 200);
+            bst.AddKeyValue(-3, 200);
+
+            List<BSTNode<int>> list = bst.DeepAllNodes(0);
+            int[] keys = new int[] { -5, -3, 1, 3, 6, 8, 9, 10, 12, 16, 19, 20, 23 };
+            int counter = 0;
+            Assert.AreEqual(13, list.Count);
 
             foreach (BSTNode<int> node in list)
             {
@@ -69,14 +125,20 @@ namespace AlgoTest_1
         }
 
         [TestMethod]
-        public void TestDeepMode2_1()
+        public void TestDeepMode1_2()
         {
             BST<int> bst = GetBST();
-            List<BSTNode<int>> list = bst.DeepAllNodes(2);
-            int[] keys = new int[] { 16, 8, 3, 6, 10, 9, 12, 20, 19, 23 };
+            bst.AddKeyValue(-2, 200);
+            bst.AddKeyValue(1, 200);
+            bst.AddKeyValue(11, 200);
+            bst.AddKeyValue(22, 200);
+            bst.AddKeyValue(21, 200);
+
+            List<BSTNode<int>> list = bst.DeepAllNodes(1);
+            int[] keys = new int[] { 1, -2, 6, 3, 9, 11, 12, 10, 8, 19, 21, 22, 23, 20, 16 };
             int counter = 0;
 
-            Assert.AreEqual(10, list.Count);
+            Assert.AreEqual(15, list.Count);
 
             foreach (BSTNode<int> node in list)
             {
@@ -85,9 +147,8 @@ namespace AlgoTest_1
             }
         }
 
-
         [TestMethod]
-        public void TestDeepMode2_2()
+        public void TestDeepMode1_3()
         {
             BST<int> bst = GetBST();
             bst.AddKeyValue(4, 200);
@@ -108,11 +169,57 @@ namespace AlgoTest_1
             }
         }
 
+        [TestMethod]
+        public void TestDeepMode2_1()
+        {
+            BST<int> bst = GetBST();
+            List<BSTNode<int>> list = bst.DeepAllNodes(2);
+            int[] keys = new int[] { 16, 8, 3, 6, 10, 9, 12, 20, 19, 23 };
+            int counter = 0;
+
+            Assert.AreEqual(10, list.Count);
+
+            foreach (BSTNode<int> node in list)
+            {
+                Assert.AreEqual(keys[counter], node.NodeKey);
+                counter++;
+            }
+        }
+
+        [TestMethod]
+        public void TestDeepMode2_2()
+        {
+            BST<int> bst = GetBST();
+            bst.AddKeyValue(-5, 200);
+            bst.AddKeyValue(-3, 200);
+            bst.AddKeyValue(1, 200);
+            bst.AddKeyValue(-4, 200);
+            bst.AddKeyValue(30, 200);
+            bst.AddKeyValue(22, 200);
+            bst.AddKeyValue(21, 200);
+
+            List<BSTNode<int>> list = bst.DeepAllNodes(2);
+            int[] keys = new int[] { 16, 8, 3, -5, -3, -4, 1, 6, 10, 9, 12, 20, 19, 23, 22, 21, 30 };
+            int counter = 0;
+
+            Assert.AreEqual(17, list.Count);
+
+            foreach (BSTNode<int> node in list)
+            {
+                Assert.AreEqual(keys[counter], node.NodeKey);
+                counter++;
+            }
+        }
+
+
         /*
          *              16
          *          8       20
          *       3    10   19  23
-         *        6  9  12
+         *        6  9  12     
+         *      
+         *                     
+         * 
          * 
          * 
          */
